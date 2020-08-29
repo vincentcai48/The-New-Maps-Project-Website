@@ -2,9 +2,6 @@ const express = require("express");
 const app = express();
 const path = require("path");
 
-const dotenv = require("dotenv");
-dotenv.config();
-
 app.use(express.json());
 
 if (process.env.NODE_ENV === "production") {
