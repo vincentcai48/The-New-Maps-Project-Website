@@ -285,7 +285,8 @@ section#top-section {
 
 #resources li a {
   text-decoration: none;
-  margin: 10px 0;
+  margin: 10px 0px;
+  margin-right: 0px;
   text-align: center;
   max-width: 400px;
   display: block;
@@ -718,10 +719,6 @@ ul#algorithm-input-headers li p {
 }
 
 @media (max-width: 570px) {
-  #resources li a {
-    max-width: 80%;
-  }
-
   #home2 {
     grid-template-columns: 1fr;
   }
@@ -789,5 +786,14 @@ ul#algorithm-input-headers li p {
   #about-paragraph,
   #resources-paragraph {
     margin-right: 20px;
+  }
+
+  #home2 div {
+    margin: auto 20px;
+  }
+
+  #resources li a {
+    box-sizing: border-box;
+    width: 100%;
   }
 }
