@@ -10,6 +10,7 @@ import Info from "./components/Info";
 import Datastore from "./components/Datastore";
 import Gallery from "./components/Gallery";
 import Admin from "./components/Login";
+import Algorithm from "./components/Algorithm"
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/info" component={Info} />
           <Route path="/gallery" component={Gallery} />
           <Route path="/admin" component={Admin} />
+          <Route path="/algorithm" component={Algorithm}/>
         </Switch>
         <Footer />
       </div>

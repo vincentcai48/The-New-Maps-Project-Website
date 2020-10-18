@@ -1,15 +1,19 @@
 import React from "react";
+import Loading from "./Loading";
 import { storage, firestore } from "../config/firebase";
 
 class Visual extends React.Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       currentFile: null,
       stateLocations: {},
       visualizeOptions: {},
       markersArr: [], //just for purposes of deleting markers.
       map: null,
+      districts: [], //starting at 1, NOT 0. the "dataObj" the readFile() function
+      focusDistrict: -1,
+      isLoading: false,
     };
   }
 
@@ -20,10 +24,6 @@ class Visual extends React.Component {
     pathReference
       .getDownloadURL()
       .then(function (url) {
-        console.log(url);
-        console.log(classThis);
-        // `url` is the download URL for 'images/stars.jpg'
-        fetch(url).then((data) => console.log(data));
         // This can be downloaded directly:
         var xhr = new XMLHttpRequest();
         xhr.responseType = "blob";
@@ -52,7 +52,7 @@ class Visual extends React.Component {
     var script = document.createElement("script");
     script.src =
       "https://maps.googleapis.com/maps/api/js?key=" +
-      process.env.REACT_APP_GOOGLE_APIKEY +
+      "AIzaSyB5dR_M5LglL5rK-2P5oA44lHduBUD8C2c" +
       "";
     console.log(process.env.REACT_APP_GOOGLE_APIKEY);
     script.defer = true;
@@ -84,7 +84,6 @@ class Visual extends React.Component {
       .doc("v38Eqbri3jvGCndvfsy5")
       .get()
       .then((doc) => {
-        console.log("hello");
         if (doc.exists) {
           this.setState({ visualizeOptions: doc.data() });
         } else {
@@ -100,16 +99,15 @@ class Visual extends React.Component {
   };
 
   selectedOption = (e) => {
-    console.log(e.target);
     //could return the span as e.target if you click on it
     var fname = e.target.name || e.target.parentElement.name;
     document.getElementById("confirm-visualization").classList = "";
+    window.location = "/visualizer#top-section";
     document.getElementById("confirm-visualization").textContent = "Loading...";
     this.setCurrentFile(fname);
   };
 
   initMap = function () {
-    console.log("hello");
     //create the map, default in Washington, DC;
     var center = { lat: 39.3433, lng: -95.4603 };
     var map = new window.google.maps.Map(document.getElementById("map"), {
@@ -124,10 +122,18 @@ class Visual extends React.Component {
 
   uploadOwnFile = async (e) => {
     await this.setState({ currentFile: e.target.files[0] });
+    this.unfocusDistrict();
+  };
+
+  changeFocusDistrict = (e) => {
+    const { name } = e.target;
+    console.log(name, e.target);
+    this.setState({ focusDistrict: Number(name) });
     this.readFile();
   };
 
   readFile = () => {
+    this.setState({ isLoading: true });
     var fr = new FileReader();
     var classThis = this;
     fr.onload = function () {
@@ -157,36 +163,43 @@ class Visual extends React.Component {
             dataObj[districtNo].population += pop;
             dataObj[districtNo].towns.push(townName);
           }
-          var s =
-            "http://maps.google.com/mapfiles/ms/icons/" +
-            colors[districtNo % colors.length] +
-            "-dot.png";
-          var marker = new window.google.maps.Marker({
-            position: { lat: lat, lng: lng },
-            map: classThis.state.map,
-            icon: {
-              url: s,
-            },
-            title: townName,
-          });
-          classThis.setState((prevState) => {
-            var addOneMarker = prevState.markersArr;
-            addOneMarker.push(marker);
-            return { markersArr: addOneMarker };
-          }); //add to array, so can delete later
-          const contentString =
-            "<div className='town-name'>" +
-            townName +
-            "<span> District " +
-            districtNo +
-            "</span>" +
-            "</div>";
-          const infowindow = new window.google.maps.InfoWindow({
-            content: contentString,
-          });
-          marker.addListener("click", () => {
-            infowindow.open(classThis.state.map, marker);
-          });
+
+          //only put the marker if it is in the selected district or there is no selected district
+          if (
+            classThis.state.focusDistrict == -1 ||
+            classThis.state.focusDistrict === districtNo
+          ) {
+            var s =
+              "http://maps.google.com/mapfiles/ms/icons/" +
+              colors[districtNo % colors.length] +
+              "-dot.png";
+            var marker = new window.google.maps.Marker({
+              position: { lat: lat, lng: lng },
+              map: classThis.state.map,
+              icon: {
+                url: s,
+              },
+              title: townName,
+            });
+            classThis.setState((prevState) => {
+              var addOneMarker = prevState.markersArr;
+              addOneMarker.push(marker);
+              return { markersArr: addOneMarker };
+            }); //add to array, so can delete later
+            const contentString =
+              "<div className='town-name'>" +
+              townName +
+              "<span> District " +
+              districtNo +
+              "</span>" +
+              "</div>";
+            const infowindow = new window.google.maps.InfoWindow({
+              content: contentString,
+            });
+            marker.addListener("click", () => {
+              infowindow.open(classThis.state.map, marker);
+            });
+          }
         } else {
           var elmts = e.split(",");
           document.getElementById("title").innerHTML =
@@ -202,28 +215,10 @@ class Visual extends React.Component {
           }
         }
       });
+      classThis.setState({ isLoading: false });
 
-      //fill out the data
-      document.getElementById("data").innerHTML = ""; //first empty previous data
-      console.log(dataObj);
-      for (var i = 1; i < dataObj.length; i++) {
-        var dataString = "";
-        dataString +=
-          "<div id='district" +
-          i +
-          "'><h3 style='background-color: " +
-          dataObj[i].color +
-          "'>District " +
-          i +
-          "| Population: " +
-          dataObj[i].population +
-          "</h3><ul class='towns-list'>";
-        dataObj[i].towns.forEach((e) => {
-          dataString += "<li>" + e + "</li>";
-        });
-        dataString += "</div>";
-        document.getElementById("data").innerHTML += dataString;
-      }
+      //fills out district in state, so that the data can be filled out.
+      classThis.setState({ districts: dataObj });
     };
 
     if (this.state.currentFile) fr.readAsText(this.state.currentFile);
@@ -231,7 +226,6 @@ class Visual extends React.Component {
 
   openCloseOptions = () => {
     const optionsDOM = document.getElementById("options");
-    console.log("clicked");
     if (optionsDOM.style.display == "none") {
       optionsDOM.style.display = "grid";
     } else {
@@ -239,9 +233,46 @@ class Visual extends React.Component {
     }
   };
 
+  returnDistrictsListsDOM = () => {
+    var districts = this.state.districts;
+    var arr = [];
+    for (var i = 1; i < districts.length; i++) {
+      arr.push(
+        <div id={"district" + i}>
+          <button
+            type="button"
+            class="view-alone"
+            onClick={this.changeFocusDistrict}
+            name={i}
+          >
+            View Alone
+          </button>
+          <h3 style={{ backgroundColor: districts[i].color }}>
+            {"District " + i + " | Population:" + districts[i].population}
+          </h3>
+          <ul class="towns-list">
+            {districts[i].towns.map((e) => (
+              <li>{e}</li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
+    console.log(arr);
+    return arr;
+  };
+
+  //This ALSO READS THE FILE!! Call this whenver you need to visualize ALL districts
+  unfocusDistrict = () => {
+    this.setState({ focusDistrict: -1 });
+    this.readFile();
+  };
+
   render() {
     return (
       <div>
+        {this.state.isLoading && <Loading />}
+
         <h3 id="visualizer-title">
           The New Maps <span style={{ color: "lightcoral" }}>Visualizer</span>
         </h3>
@@ -250,7 +281,7 @@ class Visual extends React.Component {
             <div id="options-menu-buttons">
               <button
                 id="confirm-visualization"
-                onClick={() => this.readFile()}
+                onClick={() => this.unfocusDistrict()}
               >
                 Select an option
               </button>
@@ -263,21 +294,25 @@ class Visual extends React.Component {
             </div>
             <div id="options">
               {this.state.visualizeOptions.allOptions &&
-                this.state.visualizeOptions.allOptions.map((e) => {
-                  return (
-                    <button
-                      className="option"
-                      type="button"
-                      key={`${e.filename}-uniquekey`}
-                      id={`${e.filename}-button`}
-                      name={e.filename}
-                      onClick={this.selectedOption}
-                    >
-                      {e.state}
-                      <span>T: {e.threshold}</span>
-                    </button>
-                  );
-                })}
+                this.state.visualizeOptions.allOptions
+                  .sort((a, b) => {
+                    return a.state.localeCompare(b.state);
+                  })
+                  .map((e) => {
+                    return (
+                      <button
+                        className="option"
+                        type="button"
+                        key={`${e.filename}-uniquekey`}
+                        id={`${e.filename}-button`}
+                        name={e.filename}
+                        onClick={this.selectedOption}
+                      >
+                        {e.state}
+                        {e.text ? <span>{e.text}</span> : ""}
+                      </button>
+                    );
+                  })}
             </div>
           </div>
 
@@ -296,10 +331,29 @@ class Visual extends React.Component {
         <h2 id="title"></h2>
 
         <div id="map"></div>
-        <div id="data"></div>
+
+        <div id="focusedDistrict">
+          {this.state.focusDistrict != -1 && (
+            <div>
+              <div>District {this.state.focusDistrict}</div>
+              <button type="button" onClick={this.unfocusDistrict}>
+                Unselect
+              </button>
+            </div>
+          )}
+        </div>
+        <div id="data">{this.returnDistrictsListsDOM()}</div>
       </div>
     );
   }
 }
+// {
+//   this.state.focusDistrict != -1 && (
+//     <div>
+//       District Selected: {this.state.focusDistrict}
+//       <button onClick={this.unfocusDistrict()}>Unselect</button>
+//     </div>
+//   );
+// }
 
 export default Visual;

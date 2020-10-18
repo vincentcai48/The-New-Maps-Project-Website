@@ -24,8 +24,8 @@ class Home extends React.Component {
             <ul id="resources" class="inhome">
               <li>
                 <a
-                  target="_blank"
-                  href="https://github.com/vincentcai48/The-New-Maps-Project-Algorithm"
+                 
+                  href="/algorithm"
                 >
                   The Algorithm {">>"}
                 </a>

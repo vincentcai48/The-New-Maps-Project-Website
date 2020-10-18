@@ -32,10 +32,11 @@ class News extends React.Component {
   render() {
     return (
       <div>
+        <h2 id="news-text">NEWS</h2>
         {this.state.posts.map((e) => {
           return (
-            <div className="post">
-              <i className="far fa-newspaper"></i>
+            <div className="post" key={e.title}>
+              <div class="news fas fa-newspaper">NEWS</div>
               <h5>{e.title}</h5>
               <p>{e.text}</p>
               <div

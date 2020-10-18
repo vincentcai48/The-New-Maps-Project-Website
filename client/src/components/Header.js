@@ -19,22 +19,26 @@ function Header() {
         </a>
       </h1>
       <ul>
-        <li>
-          <a href="/news" class="no-box">
+      <li>
+          <a href="/news" className="no-box">
             News
           </a>
         </li>
-        <li>
-          <a href="/info" class="no-box">
-            Info
+      <li>
+          <a href="/algorithm" className="no-box">
+            {window.outerWidth>1270||(window.outerWidth<800&&window.outerWidth>500)?"The Algorithm":"Algorithm"}
           </a>
         </li>
         <li>
           <a href="/visualizer">Visualize</a>
         </li>
+        
+        
+        
+        
         <li>
-          <a href="/gallery" class="no-box">
-            Gallery
+          <a href="/info" className="no-box">
+            Info
           </a>
         </li>
       </ul>
