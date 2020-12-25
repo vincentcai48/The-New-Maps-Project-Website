@@ -320,7 +320,6 @@ section#top-section {
   color: black;
   border: 3px solid black;
   margin: 5vh 5vw;
-  overflow-x: scroll;
 }
 
 #home2 {
@@ -666,7 +665,6 @@ ul#algorithm-input-headers li p {
   border: 3px solid black;
   background-color: white;
   border-radius: 10px;
-  overflow-x: scroll;
 }
 
 #algorithm-h2 {
@@ -795,5 +793,13 @@ ul#algorithm-input-headers li p {
   #resources li a {
     box-sizing: border-box;
     width: 100%;
+  }
+
+  #docs {
+    overflow-x: scroll;
+  }
+
+  #output-content {
+    overflow-x: scroll;
   }
 }

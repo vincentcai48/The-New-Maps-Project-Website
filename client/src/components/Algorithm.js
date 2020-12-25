@@ -36,8 +36,8 @@ class Algorithm extends React.Component{
         return(
             <div>
                 <h2 id="algorithm-h2">The Algorithm</h2>
-                <p className="algorithm-description">This is the browser version of The New Maps Project Redistricting Algorithm, simply enter data into the fields and run the algorithm in the browser. If you want the original Java Algorithm to download and run and you local system, <a href="">Click Here</a></p>
-                <p className="algorithm-description" style={{fontSize: "1.5em", marginTop: "15vh"}}>Learn how to use and how it works in <a href="/docs">the documentation</a></p> 
+                <p className="algorithm-description">This is the browser version of The New Maps Project Redistricting Algorithm, simply enter data into the fields and run the algorithm in the browser. If you want the original Java Algorithm to download and run and you local system, <a target="_blank" href="https://github.com/vincentcai48/The-New-Maps-Project-Algorithm">Click Here</a></p>
+                <p className="algorithm-description" style={{fontSize: "1.5em", marginTop: "15vh"}}>Learn how to use and how it works in <a href="/docs" target="_blank">the documentation</a></p> 
                 <form id="algorithm-input">
                     
                     <ul id="algorithm-input-headers"><li><input type='text' id="algorithm-input-state" placeholder="State Name" name="stateName"onChange={this.changeState}></input></li>
