@@ -615,15 +615,17 @@ h2#news-text {
 
 #mission-container {
   padding: 5vh 8vw;
-  width: 100vw;
+  width: 100%;
   margin: 0px;
   box-sizing: border-box;
-  color: black;
+  color: white;
   min-height: 90vh;
 }
 
 #mission-container h2 {
-  font-size: 36px;
+  font-size: 46px;
+  text-shadow: 2px 3px 1px black;
+  color: lightcoral;
   font-weight: bolder;
   text-align: center;
   font-style: italic;
@@ -635,10 +637,13 @@ h2#news-text {
   font-weight: bolder;
   font-style: italic;
   margin: 10vh 0px;
+  line-height: 1.5;
 }
 
 #mission-secondary {
   font-size: 20px;
+  opacity: 0.9;
+  margin-bottom: 20vh;
 }
 
 @keyframes spin {
