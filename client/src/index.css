@@ -10,8 +10,7 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-  --primary-font: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  --primary-font: "Rubik", sans-serif;
 }
 body {
   margin: 0;
@@ -612,6 +611,34 @@ h2#news-text {
   width: 120px;
   height: 120px;
   animation: spin 2s linear infinite;
+}
+
+#mission-container {
+  padding: 5vh 8vw;
+  width: 100vw;
+  margin: 0px;
+  box-sizing: border-box;
+  color: black;
+  min-height: 90vh;
+}
+
+#mission-container h2 {
+  font-size: 36px;
+  font-weight: bolder;
+  text-align: center;
+  font-style: italic;
+}
+
+#mission-main {
+  font-size: 24px;
+  text-shadow: 1px 1px 1px black;
+  font-weight: bolder;
+  font-style: italic;
+  margin: 10vh 0px;
+}
+
+#mission-secondary {
+  font-size: 20px;
 }
 
 @keyframes spin {
