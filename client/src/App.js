@@ -9,7 +9,7 @@ import Docs from "./components/Docs";
 import Info from "./components/Info";
 import Datastore from "./components/Datastore";
 import Gallery from "./components/Gallery";
-import Admin from "./components/Login";
+import Admin from "./components/Admin";
 import Algorithm from "./components/Algorithm";
 import Mission from "./components/Mission";
 
