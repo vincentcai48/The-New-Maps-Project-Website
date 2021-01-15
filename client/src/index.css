@@ -24,6 +24,11 @@ input:focus {
   background-color: #eee;
 }
 
+textarea {
+  font-family: var(--primary-font);
+  font-size: 16px;
+}
+
 header {
   display: grid;
   grid-template-columns: 2fr 3fr;
@@ -418,7 +423,8 @@ h3#visualizer-title {
 }
 
 #add-news,
-#login-form {
+#login-form,
+.cs {
   padding: 20px;
   background-color: #0d5a6d;
   border-radius: 15px;
@@ -437,7 +443,8 @@ h3#visualizer-title {
 }
 
 #add-news input,
-#login-form input {
+#login-form input,
+.ci {
   display: block;
   margin: 10px 0px;
   font-size: 20px;
@@ -447,33 +454,39 @@ h3#visualizer-title {
   box-shadow: 1px 2px 3px grey;
 }
 
-#add-news {
+#add-news,
+.cs {
   max-width: 800px;
   text-align: left;
+  margin-bottom: 5vh;
 }
 
-#add-news h3 {
+#add-news h3,
+.cs h3 {
   color: white;
   margin: 0px 0px 20px 0px;
   font-size: 30px;
 }
 
-#add-news textarea {
+#add-news textarea,
+.ct {
   width: 80%;
-  height: 300px;
+  height: 200px;
   padding: 5px;
   border-radius: 5px;
   border: 3px solid black;
   background-color: rgb(241, 241, 241);
 }
 
-#add-news textarea:focus {
+#add-news textarea:focus,
+.ct:focus {
   outline: none;
   background-color: white;
 }
 
 #add-news button,
-#login-form button {
+#login-form button,
+.cb {
   font-size: 20px;
   border: 3px solid black;
   border-radius: 8px;
@@ -482,7 +495,8 @@ h3#visualizer-title {
 }
 
 #add-news button:hover,
-#login-form button:hover {
+#login-form button:hover,
+.cb:hover {
   background-color: black;
   color: white;
 }

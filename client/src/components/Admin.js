@@ -1,5 +1,6 @@
 import React from "react";
 import { auth, firestore, timestamp } from "../config/firebase";
+import Loading from "./Loading";
 import Login from "./Login";
 
 class Admin extends React.Component {
@@ -7,6 +8,10 @@ class Admin extends React.Component {
     super();
     this.state = {
       isLoggedIn: Boolean(auth.currentUser),
+      missionMain: "",
+      missionSecondary: "",
+      missionIsChanged: false,
+      isLoading: false,
     };
   }
 
@@ -18,11 +23,22 @@ class Admin extends React.Component {
         this.setState({ isLoggedIn: false });
       }
     });
+
+    firestore
+      .collection("settings")
+      .doc("mission")
+      .get()
+      .then((doc) => {
+        this.setState({
+          missionMain: doc.data().main,
+          missionSecondary: doc.data().secondary,
+        });
+      });
   }
 
   changeState = (e) => {
     const { name, value } = e.target;
-    this.setState({ [name]: value, message: "" });
+    this.setState({ [name]: value, message: "", missionIsChanged: true });
   };
 
   addNews = () => {
@@ -38,6 +54,20 @@ class Admin extends React.Component {
           message: 'Added "' + this.state.newsTitle + '" successfully!',
         })
       );
+  };
+
+  updateMissionText = () => {
+    this.setState({ isLoading: true });
+    firestore
+      .collection("settings")
+      .doc("mission")
+      .update({
+        main: this.state.missionMain,
+        secondary: this.state.missionSecondary,
+      })
+      .then(() => {
+        this.setState({ isLoading: false, missionIsChanged: false });
+      });
   };
 
   logout = () => {
@@ -78,6 +108,32 @@ class Admin extends React.Component {
               Logout
             </button>
           </form>
+
+          <form className="cs">
+            <h3>Mission Text</h3>
+            <textarea
+              className="ct"
+              value={this.state.missionMain}
+              onChange={this.changeState}
+              name="missionMain"
+              placeholder="Mission main text"
+              style={{ fontWeight: "bolder" }}
+            ></textarea>
+            <textarea
+              className="ct"
+              onChange={this.changeState}
+              name="missionSecondary"
+              placeholder="Mission secondary text"
+              value={this.state.missionSecondary}
+            ></textarea>
+            {this.state.missionIsChanged && (
+              <button className="cb" onClick={this.updateMissionText}>
+                Update Mission Text
+              </button>
+            )}
+          </form>
+
+          {this.state.isLoading && <Loading />}
         </div>
       </div>
     );
