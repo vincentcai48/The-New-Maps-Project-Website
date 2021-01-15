@@ -23,11 +23,15 @@ class Login extends React.Component {
   }
 
   login = async () => {
-    console.log(this.state.email, this.state.password);
+    if (!this.state.email || !this.state.password) {
+      this.setState({ message: "Please fill in all fields" });
+    }
     await auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .catch((err) => this.setState({ message: err.message }));
-    document.querySelector("#add-news #text-first").value = "";
+    if (document.querySelector("#add-news #text-first")) {
+      document.querySelector("#add-news #text-first").value = "";
+    }
   };
 
   changeState = (e) => {
@@ -88,8 +92,9 @@ class Login extends React.Component {
       );
     } else {
       return (
-        <div>
+        <div id="login-container">
           <form id="login-form">
+            <h2>Developer Login</h2>
             <input
               type="text"
               name="email"

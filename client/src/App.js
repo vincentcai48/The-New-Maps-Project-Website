@@ -10,7 +10,8 @@ import Info from "./components/Info";
 import Datastore from "./components/Datastore";
 import Gallery from "./components/Gallery";
 import Admin from "./components/Login";
-import Algorithm from "./components/Algorithm"
+import Algorithm from "./components/Algorithm";
+import Mission from "./components/Mission";
 
 function App() {
   return (
@@ -20,13 +21,14 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/visualizer" component={Visual} />
+          <Route path="/mission" component={Mission} />
           <Route path="/news" component={News} />
           <Route path="/docs" component={Docs} />
           <Route path="/datastore" component={Datastore} />
           <Route path="/info" component={Info} />
           <Route path="/gallery" component={Gallery} />
           <Route path="/admin" component={Admin} />
-          <Route path="/algorithm" component={Algorithm}/>
+          <Route path="/algorithm" component={Algorithm} />
         </Switch>
         <Footer />
       </div>

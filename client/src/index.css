@@ -401,18 +401,26 @@ h3#visualizer-title {
   font-size: 30px;
 }
 
+#login-container {
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #add-news,
 #login-form {
   padding: 20px;
   background-color: #0d5a6d;
   border-radius: 15px;
   text-align: center;
-  margin: 40vh auto;
   box-sizing: border-box;
 }
 
-#login-form {
-  width: 300px;
+#login-form h2 {
+  margin: 10px 0px 30px 0px;
+  color: white;
 }
 
 #add-news {
@@ -429,11 +437,25 @@ h3#visualizer-title {
   display: block;
   margin: 10px;
   font-size: 20px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 3px solid black;
+  box-shadow: 1px 2px 3px grey;
 }
 
 #add-news button,
 #login-form button {
-  font-size: 30px;
+  font-size: 20px;
+  border: 3px solid black;
+  border-radius: 8px;
+  padding: 5px 10px;
+  transition: all 0.3s;
+}
+
+#add-news button:hover,
+#login-form button:hover {
+  background-color: black;
+  color: white;
 }
 
 #about-paragraph,
