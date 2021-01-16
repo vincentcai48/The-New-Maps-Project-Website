@@ -36,10 +36,32 @@ function Header() {
           <a href="/visualizer">Visualize</a>
         </li>
 
-        <li>
-          <a href="/info" className="no-box">
-            Info
-          </a>
+        <li className="dropdown-container">
+          <div className="no-box">
+            More <i className="fas fa-caret-down"></i>
+          </div>
+          <ul id="more-options">
+            <li>
+              <a href="/info" className="no-box">
+                Info
+              </a>
+            </li>
+            <li>
+              <a href="/gallery" className="no-box">
+                Gallery
+              </a>
+            </li>
+            <li>
+              <a href="/team" className="no-box">
+                Team
+              </a>
+            </li>
+            <li>
+              <a href="/news" className="no-box">
+                News
+              </a>
+            </li>
+          </ul>
         </li>
       </ul>
     </header>
