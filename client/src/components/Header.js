@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 //<img id="logo" src="NMPlogo.PNG"></img>
 function Header() {
   const [route, setRoute] = useState("/");
+  const isMobile = window.innerWidth < 571;
+  const [showNav, setShowNav] = useState(false);
   return (
     <header>
       <h1>
@@ -17,53 +19,85 @@ function Header() {
             </span>
           )}
         </a>
+        {isMobile && (
+          <button
+            id="open-close-options"
+            onClick={() => setShowNav(!showNav)}
+            class="fa fa-bars"
+          ></button>
+        )}
       </h1>
-      <ul>
-        <li>
-          <a href="/mission" className="no-box">
-            Mission
-          </a>
-        </li>
-        <li>
-          <a href="/algorithm" className="no-box">
-            {window.outerWidth > 1270 ||
-            (window.outerWidth < 800 && window.outerWidth > 500)
-              ? "The Algorithm"
-              : "Algorithm"}
-          </a>
-        </li>
-        <li>
-          <a href="/visualizer">Visualize</a>
-        </li>
+      {!isMobile || showNav ? (
+        <ul>
+          {isMobile && (
+            <h2 className="mobile-menu-title">
+              Menu <i className="fa fa-bars"></i>
+            </h2>
+          )}
+          {isMobile && (
+            <button
+              className="fas fa-times menu-x-out"
+              onClick={() => setShowNav(false)}
+            ></button>
+          )}
+          <li>
+            <a href="/mission" className="no-box">
+              Mission
+            </a>
+          </li>
+          <li>
+            <a href="/algorithm" className="no-box">
+              {window.outerWidth > 1270 ||
+              (window.outerWidth < 800 && window.outerWidth > 500)
+                ? "The Algorithm"
+                : "Algorithm"}
+            </a>
+          </li>
+          <li>
+            <a href="/visualizer">Visualize</a>
+          </li>
 
-        <li className="dropdown-container">
-          <div className="no-box">
-            More <i className="fas fa-caret-down"></i>
-          </div>
-          <ul id="more-options">
-            <li>
-              <a href="/info" className="no-box">
-                Info
-              </a>
-            </li>
-            <li>
-              <a href="/gallery" className="no-box">
-                Gallery
-              </a>
-            </li>
-            <li>
-              <a href="/team" className="no-box">
-                Team
-              </a>
-            </li>
-            <li>
-              <a href="/news" className="no-box">
-                News
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
+          <li className="dropdown-container">
+            <div className="no-box">
+              More <i className="fas fa-caret-down"></i>
+            </div>
+            <ul id="more-options">
+              <li>
+                <a href="/info" className="no-box">
+                  Info
+                </a>
+              </li>
+              <li>
+                <a href="/news" className="no-box">
+                  News
+                </a>
+              </li>
+              <li>
+                <a href="/gallery" className="no-box">
+                  Gallery
+                </a>
+              </li>
+              <li>
+                <a href="/datastore" className="no-box">
+                  Datastore
+                </a>
+              </li>
+              <li>
+                <a href="/docs" className="no-box">
+                  Docs
+                </a>
+              </li>
+              <li>
+                <a href="/team" className="no-box">
+                  Team
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      ) : (
+        ""
+      )}
     </header>
   );
 }

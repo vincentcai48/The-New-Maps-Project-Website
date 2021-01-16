@@ -828,6 +828,80 @@ ul#algorithm-input-headers li p {
   text-align: center;
 }
 
+#team-container {
+  padding: 5vh 5vw;
+  box-sizing: border-box;
+  min-height: 90vh;
+  padding-bottom: 30vh;
+}
+
+#team-container > h2 {
+  font-size: 30px;
+  color: black;
+  text-shadow: 1px 1px 1px black;
+}
+
+#team-container > h2 > p {
+  margin: 0px;
+  font-weight: 100;
+  font-size: 16px;
+  text-shadow: none;
+}
+
+#team-members {
+  padding: 20px 0px;
+}
+
+#team-members li {
+  list-style: none;
+  padding: 0px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  margin-bottom: 10vh;
+}
+
+.person-image {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  margin: 10px 30px 10px 10px;
+}
+
+.right-section {
+  max-width: 800px;
+}
+
+.right-section h3 {
+  margin: 20px 0px 0px 0px;
+  font-weight: bolder;
+  font-size: 26px;
+}
+
+.right-section h4 {
+  margin: 0px;
+  font-weight: 600;
+}
+
+.right-section p {
+  opacity: 0.9;
+  font-size: 15px;
+  margin-left: 3px;
+}
+
+.right-section .contact {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+.right-section .contact i {
+  margin-right: 5px;
+}
+
+.right-section .contact a {
+  color: black;
+}
+
 @media (min-width: 851px) and (max-width: 1090px) {
   #options {
     grid-template-columns: repeat(3, 1fr);
@@ -874,9 +948,89 @@ ul#algorithm-input-headers li p {
     font-size: 12px;
   }
 
-  header ul {
-    margin: 20px 0;
-    padding: 0;
+  header h1 {
+    margin: 10px 0px;
+    align-items: center;
+  }
+
+  header h1 > a {
+    margin-left: 5spx;
+  }
+
+  header h1 > button {
+    margin: 10px !important;
+  }
+
+  header > ul {
+    position: fixed;
+    margin: 0px;
+    padding: 10% 5% 40% 5%;
+    box-sizing: border-box;
+    display: block;
+    background-color: #559190;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1000;
+    top: 0px;
+    left: 0px;
+  }
+
+  .mobile-menu-title {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 24px;
+    text-shadow: 0px 0px 3px black;
+    margin-bottom: 30px;
+  }
+
+  .mobile-menu-title i {
+    margin-left: 10px;
+  }
+
+  .menu-x-out {
+    background-color: transparent;
+    color: #faffe4;
+    font-weight: bolder;
+    border: none;
+    font-size: 30px;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+  }
+
+  .menu-x-out:hover {
+    text-shadow: 0px 0px 5px #faffe4;
+  }
+
+  header > ul > li {
+    min-height: 40px;
+  }
+
+  li.dropdown-container > div {
+    display: none;
+  }
+
+  li.dropdown-container ul {
+    display: block;
+    background-color: transparent;
+    color: #faffe4;
+    margin: 0px;
+    padding: 0px;
+  }
+
+  li.dropdown-container ul li {
+    min-height: 40px;
+  }
+
+  li.dropdown-container ul li a {
+    color: #faffe4;
+    padding: 5px 20px;
+    border-radius: 10px;
+  }
+
+  li.dropdown-container ul li a:hover {
+    color: #559190;
+    background-color: #faffe4;
   }
 
   #jumbotron {

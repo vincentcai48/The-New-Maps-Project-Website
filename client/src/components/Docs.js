@@ -25,7 +25,7 @@ class Docs extends React.Component {
             repository for the algorithm.{" "}
             <a
               target="_blank"
-              href="https://github.com/vincentcai48/The-New-Maps-Project-Algorithm"
+              href="https://github.com/vincentcaitech/The-New-Maps-Project-Algorithm"
             >
               Go to GitHub repository
             </a>
@@ -123,7 +123,7 @@ class Docs extends React.Component {
             GitHub repository.{" "}
             <a
               target="_blank"
-              href="https://github.com/vincentcai48/The-New-Maps-Project-Generate-CSV-1.0"
+              href="https://github.com/vincentcaitech/The-New-Maps-Project-Generate-CSV-1.0"
             >
               Go to GitHub repository
             </a>

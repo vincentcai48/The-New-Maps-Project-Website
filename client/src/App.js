@@ -12,6 +12,7 @@ import Gallery from "./components/Gallery";
 import Admin from "./components/Admin";
 import Algorithm from "./components/Algorithm";
 import Mission from "./components/Mission";
+import Team from "./components/Team";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/gallery" component={Gallery} />
           <Route path="/admin" component={Admin} />
           <Route path="/algorithm" component={Algorithm} />
+          <Route path="/team" component={Team} />
         </Switch>
         <Footer />
       </div>
